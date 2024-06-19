@@ -60,6 +60,8 @@ class Checker:
                         file_content=f'{self.private_key} | {amount_humanize}\n'
                     )
 
+                return amount_humanize
+
             except Exception as error:
                 if response_text:
                     logger.error(
