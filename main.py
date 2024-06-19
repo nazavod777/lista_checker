@@ -1,4 +1,6 @@
 import asyncio
+from os import mkdir
+from os.path import exists
 from sys import stderr
 
 import aiohttp
@@ -48,12 +50,17 @@ async def main() -> None:
 
 
 if __name__ == '__main__':
+    if not exists(
+            path='result'
+    ):
+        mkdir(path='result')
+
     with open(
             file='data/accounts.txt',
             mode='r',
             encoding='utf-8-sig'
     ) as file:
-        accounts_list: list[str] = [row.strip() for row in file]
+        accounts_list: list[str] = [row.strip().split(':')[-1] for row in file]
 
     logger.success(f'Successfully Loaded {len(accounts_list)} Accounts')
     threads: int = int(input('\nThreads: '))
